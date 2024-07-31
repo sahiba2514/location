@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Location-based Authentication</title>
+
+</head>
+<body>
+  <script>
+   
+    navigator.geolocation.getCurrentPosition(position => {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      const location = getLocationName(latitude, longitude);
+
+      if (['Punjab', 'Haryana', 'Chandigarh'].includes(location)) {
+
+        const username = prompt('Enter your username:');
+        const password = prompt('Enter your password:');
+
+
+        if (checkCredentials(username, password)) {
+          
+          window.location.href = `map.html?location=${location}`;
+        } else {
+          alert('Wrong credentials!');
+        }
+      } else {
+        alert('Access denied!');
+      }
+    }, error => {
+      console.error('Error getting location:', error);
+    });
+
+
+    function getLocationName(latitude, longitude) {
+    
+      return 'Punjab'; 
+    }
+
+
+    function checkCredentials(username, password) {
+
+      return username === '1' && password === '1';
+    }
+  </script>
+</body>
+</html>
